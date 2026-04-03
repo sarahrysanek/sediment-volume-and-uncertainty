@@ -80,7 +80,7 @@ lon    lat    twt
 Update file paths in the script to point to your local data, then run:
 
 ```
-python error_calculation.py
+python calc_sed_thick_w_uncert.py
 ```
 
 ## Notes on Parameters
