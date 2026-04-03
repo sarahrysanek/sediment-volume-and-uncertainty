@@ -13,8 +13,7 @@ import numpy as np
 
 #read in the sed thickness txt file and fill nans with 0s
 
-df = pd.read_csv('/Users/sarahrysanek/Desktop/Baranof/sed_vol_calc/seq_2_BF.txt', sep='\t')
-#df = pd.read_csv('/Users/sarahrysanek/Documents/QCF/Mapping/sed_accum/seq_1_GOA.txt', sep='\t')
+df = pd.read_csv('/path/to/your/gridfile.txt', sep='\t')
 
 twt = df.iloc[:,2]
 lat = df.iloc[:,1]
@@ -33,7 +32,6 @@ area_uncert = frac_uncert*area
 vel_uncert = vel *0.07
 wave_res = 40/1000
 
-
 twtt = pd.DataFrame(twt)
 
 twtt = twtt.fillna(0)
@@ -44,10 +42,12 @@ owtt = twtt/2
 #multiplying by seismic velocity for sediment (2000m/sec)=(2km/sec)
 sed_h = owtt*vel
 
-#new grd cell size is (500mx500m)
-box_vol = sed_h*0.5*0.5
+#new grd cell size is (500mx500m)=(0.5kmx0.5km)
+cell_size = 0.5
+cell_area = cell_size*cell_size
+box_vol = sed_h*cell_area
 
-#sum the volumnes for total fan volumne:
+#sum the volumnes for total volumne:
 sed_vol = box_vol.sum()
 
 print(sed_vol)
@@ -78,7 +78,7 @@ print(vol_uncert)
 #%%
 #sequence I
 
-df = pd.read_csv('/Users/sarahrysanek/Desktop/Baranof/sed_vol_calc/plate_age_gulf.txt', sep='\t')
+df = pd.read_csv('/path/to/plate/age/grd.txt', sep='\t')
 
 mya_o = df.iloc[:,2]
 #%%
@@ -135,6 +135,6 @@ print(grd_dict)
 
 #%%
 
-grd_dict.to_csv('/Users/sarahrysanek/Documents/QCF/Mapping/sed_accum/seq_1_sed_accum_rate_cm_kyr_GOA.csv', na_rep='NaN', index=False, header=False)
+grd_dict.to_csv('/path/to/where/your/output/files/go.csv', na_rep='NaN', index=False, header=False)
 
 #%%
